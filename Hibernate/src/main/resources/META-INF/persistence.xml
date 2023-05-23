@@ -1,0 +1,72 @@
+<persistence version="2.2"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+    <!--
+    The name to be reported is the same as the one reported during the creation of the entity manager
+    -->
+
+    <persistence-unit name="persistenceMysql" transaction-type="RESOURCE_LOCAL">
+        <!--
+        Resource local: autonomous projects [no frameworks]
+        Also when we rely on other frameworks like Spring
+        -->
+
+        <description>
+            Configuration of Hibernate SQL
+        </description>
+
+        <!--
+         For Hibernate 4.3 or later, use: org.hibernate.jpa.HibernatePersistenceProvider
+         For Hibernate 4.2 or earlier, use: org.hibernate.ejb.HibernatePersistence
+        -->
+
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+
+
+        <!--
+            For different DBs use appropriate dialects. Some examples are:
+            Oracle10g            org.hibernate.dialect.Oracle10gDialect
+            MySQL                org.hibernate.dialect.MySQLDialect
+            MySQL with InnoDB    org.hibernate.dialect.MySQLInnoDBDialect
+            MySQL with MyISAM    org.hibernate.dialect.MySQLMyISAMDialect
+            DB2                  org.hibernate.dialect.DB2Dialect
+        -->
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+
+            <!--Manages DB tables creation -->
+            <!--DDL database table management -->
+            <!--none: does not manage DDL operations -->
+            <!--create-drop: creates tables and deletes them at the application's shutdown -->
+            <!--create: Drops and creates the schema at each application start.
+                        With this option, all data will be lost at each start. -->
+            <!--validate: Only checks if the db schema (tables) matches the entities.
+                         If the schema does not match, the application start generates an error.
+                         No changes are made to the database. -->
+            <!--update: Updates the schema only if necessary. For example, if a new field
+                        has been added to an entity, it will simply modify the table
+                        for a new column without destroying data. -->
+
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+
+            <!--MySQL configuration -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="MySQL7698!"/>
+            <property name="hibernate.connection.url"
+                      value="jdbc:mysql://localhost:3306/hibernateDB?createDatabaseIfNotExist=true"/>
+            <!--jdbc:mysql://[hostname]:[port]/[database-name]-->
+
+
+
+        </properties>
+
+    </persistence-unit>
+
+
+</persistence>
